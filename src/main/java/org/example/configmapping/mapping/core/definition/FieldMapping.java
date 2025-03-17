@@ -2,6 +2,7 @@ package org.example.configmapping.mapping.core.definition;
 
 import org.example.configmapping.mapping.api.MappingContext;
 import org.example.configmapping.mapping.core.transform.ValueTransformer;
+import org.example.configmapping.mapping.exception.MappingException;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;

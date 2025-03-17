@@ -17,23 +17,20 @@ public class DateFormatTransformer implements ValueTransformer {
         this.targetFormat = targetFormat;
     }
 
-
     @Override
     public Object transform(Object value, MappingContext context) {
         if (value == null) return null;
-        try{
+        try {
             SimpleDateFormat srcFormat = new SimpleDateFormat(sourceFormat);
             SimpleDateFormat tgtFormat = new SimpleDateFormat(targetFormat);
-
             Date date = srcFormat.parse(value.toString());
             return tgtFormat.format(date);
-
-        }catch (Exception e){
-
+        } catch (Exception e) {
+            throw new RuntimeException("Erreur dans la transformation de date", e);
         }
     }
 
-
+    // Getters et setters
     public String getSourceFormat() { return sourceFormat; }
     public void setSourceFormat(String sourceFormat) { this.sourceFormat = sourceFormat; }
     public String getTargetFormat() { return targetFormat; }

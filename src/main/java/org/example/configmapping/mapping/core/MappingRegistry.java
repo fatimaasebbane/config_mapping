@@ -4,9 +4,7 @@ import org.example.configmapping.mapping.core.definition.MappingDefinition;
 import org.example.configmapping.mapping.override.MappingOverride;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Component
