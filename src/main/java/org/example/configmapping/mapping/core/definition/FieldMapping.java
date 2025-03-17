@@ -1,0 +1,90 @@
+package org.example.configmapping.mapping.core.definition;
+
+import org.example.configmapping.mapping.api.MappingContext;
+import org.example.configmapping.mapping.core.transform.ValueTransformer;
+import org.springframework.expression.Expression;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
+
+public class FieldMapping {
+    private String sourcePath;
+    private String targetPath;
+    private ValueTransformer transformer;
+    private MappingCondition condition;
+
+    private transient Expression sourceExpression;
+
+    private static final ExpressionParser PARSER = new SpelExpressionParser();
+
+    /**
+     * Applique ce mapping de champ entre l'objet source et l'objet cible.
+     */
+    public void apply(Object source, Object target, MappingContext context) {
+        if (condition != null && !condition.evaluate(source, target, context)) {
+            return;
+        }
+
+        try {
+            Object sourceValue = getSourceValue(source);
+        }catch (Exception e){
+            throw new MappingException("Échec du mapping du champ : " + sourcePath + " -> " + targetPath, e);
+        }
+    }
+
+
+    /**
+     * Extrait la valeur depuis l'objet source en utilisant une expression SpEL.
+     */
+
+    private Object getSourceValue(Object source) {
+        if (sourceExpression == null) {
+            sourceExpression = PARSER.parseExpression(sourcePath);
+        }
+        return sourceExpression.getValue(source);
+    }
+
+    /**
+     * Affecte la valeur dans l'objet cible en utilisant la réflexion.
+     * Pour simplifier, on suppose que targetPath correspond au nom d'une propriété
+     * et que l'objet cible expose un setter correspondant.
+     */
+    private void setTargetValue(Object target, Object value) {
+        try {
+            String setterName = "set" + Character.toUpperCase(targetPath.charAt(0)) + targetPath.substring(1);
+            for (java.lang.reflect.Method method : target.getClass().getMethods()) {
+                if (method.getName().equals(setterName) && method.getParameterCount() == 1) {
+                    method.invoke(target, value);
+                    return;
+                }
+            }
+            throw new NoSuchMethodException("Setter introuvable pour la propriété " + targetPath);
+        } catch (Exception e) {
+            throw new MappingException("Impossible d'affecter la valeur à " + targetPath, e);
+        }
+    }
+
+    /**
+     * Crée une copie de ce mapping de champ.
+     */
+    public FieldMapping copy() {
+        FieldMapping copy = new FieldMapping();
+        copy.sourcePath = this.sourcePath;
+        copy.targetPath = this.targetPath;
+        copy.transformer = this.transformer; // supposé immuable
+        copy.condition = (this.condition != null) ? this.condition.copy() : null;
+        return copy;
+    }
+
+    // Getters et setters
+    public String getSourcePath() { return sourcePath; }
+    public void setSourcePath(String sourcePath) { this.sourcePath = sourcePath; }
+
+    public String getTargetPath() { return targetPath; }
+    public void setTargetPath(String targetPath) { this.targetPath = targetPath; }
+
+    public ValueTransformer getTransformer() { return transformer; }
+    public void setTransformer(ValueTransformer transformer) { this.transformer = transformer; }
+
+    public MappingCondition getCondition() { return condition; }
+    public void setCondition(MappingCondition condition) { this.condition = condition; }
+}
