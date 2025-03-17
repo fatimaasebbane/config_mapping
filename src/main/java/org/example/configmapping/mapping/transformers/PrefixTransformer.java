@@ -14,7 +14,9 @@ public class PrefixTransformer implements ValueTransformer {
 
     @Override
     public Object transform(Object value, MappingContext context) {
+
         if (value == null) return null;
+
         return prefix + value.toString();
     }
 

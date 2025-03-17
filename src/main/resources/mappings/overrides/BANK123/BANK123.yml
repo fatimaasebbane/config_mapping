@@ -4,6 +4,7 @@ priority: 200
 fieldOverrides:
   referenceNumber:
     sourcePath: "reference"
+    targetPath: "referenceNumber"
     transformer:
       "@class": "org.example.configmapping.mapping.transformers.PrefixTransformer"
       prefix: "BANK123_"
