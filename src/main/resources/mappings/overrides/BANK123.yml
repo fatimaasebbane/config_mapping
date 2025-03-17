@@ -3,13 +3,13 @@ priority: 200
 fieldOverrides:
   referenceNumber:
     sourcePath: "reference"
-    transformer: "com.adria.cbs.connectors.mapping.transformers.PrefixTransformer"
+    transformer: "org.example.configmapping.mapping.PrefixTransformer"
     transformerParams:
       prefix: "BANK123_"
   transactionDetails:
     sourcePath: "description"
     targetPath: "transactionDetails"
-    transformer: "com.adria.cbs.connectors.mapping.transformers.StringTruncateTransformer"
+    transformer: "org.example.configmapping.mapping.StringTruncateTransformer"
     transformerParams:
       maxLength: 50
   additionalInformation:

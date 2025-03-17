@@ -31,10 +31,13 @@ public class ConfigurableMappingEngine implements MappingService {
     @PostConstruct
     public void initialize() {
         // Charger les définitions de mapping de base
+
         List<MappingDefinition> definitions = configLoader.loadMappingDefinitions();
         for (MappingDefinition def : definitions) {
             mappingRegistry.registerMapping(def);
         }
+
+
 
         // Charger les surcharges globales (non spécifiques à une banque)
         List<MappingOverride> globalOverrides = configLoader.loadMappingOverrides(null);

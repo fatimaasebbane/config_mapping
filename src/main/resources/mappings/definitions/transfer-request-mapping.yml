@@ -1,6 +1,6 @@
 id: "transfer-request-mapping"
-sourceType: "com.adria.cbs.connectors.api.dto.TransferRequestDto"
-targetType: "com.adria.cbs.connectors.sopra.model.SopraTransferRequest"
+sourceType: "org.example.configmapping.test.TransferRequestDto"
+targetType: "org.example.configmapping.test.SopraTransferRequest"
 priority: 100
 fieldMappings:
   - sourcePath: "sourceAccountId"
@@ -15,14 +15,14 @@ fieldMappings:
     targetPath: "referenceNumber"
   - sourcePath: "executionDate"
     targetPath: "requestedExecutionDate"
-    transformer: "com.adria.cbs.connectors.mapping.transformers.DateFormatTransformer"
-    transformerParams:
+    transformer:
+      "@class": "org.example.configmapping.mapping.transformers.DateFormatTransformer"
       sourceFormat: "yyyy-MM-dd"
       targetFormat: "dd/MM/yyyy"
   - sourcePath: "transferType"
     targetPath: "operationType"
-    transformer: "com.adria.cbs.connectors.mapping.transformers.EnumMappingTransformer"
-    transformerParams:
+    transformer:
+      "@class": "org.example.configmapping.mapping.transformers.EnumMappingTransformer"
       mappings:
         INTERNAL: "TRF_INT"
         DOMESTIC: "TRF_DOM"

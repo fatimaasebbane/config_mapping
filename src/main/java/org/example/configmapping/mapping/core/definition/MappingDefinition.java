@@ -10,8 +10,8 @@ public class MappingDefinition {
     private String id;
     private String sourceType;
     private String targetType;
-    private List<FieldMapping> fieldMappings = new ArrayList<>();
     private int priority;
+    private List<FieldMapping> fieldMappings = new ArrayList<>();
 
     /**
      * Applique ce mapping à l'objet source pour produire l'objet cible.
@@ -82,5 +82,16 @@ public class MappingDefinition {
             }
         }
         fieldMappings.add(newMapping);
+    }
+
+    @Override
+    public String toString() {
+        return "MappingDefinition{" +
+                "id='" + id + '\'' +
+                ", sourceType='" + sourceType + '\'' +
+                ", targetType='" + targetType + '\'' +
+                ", priority=" + priority +
+                ", fieldMappings=" + fieldMappings +
+                '}';
     }
 }

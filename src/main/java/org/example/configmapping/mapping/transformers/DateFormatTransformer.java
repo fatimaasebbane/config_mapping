@@ -35,4 +35,12 @@ public class DateFormatTransformer implements ValueTransformer {
     public void setSourceFormat(String sourceFormat) { this.sourceFormat = sourceFormat; }
     public String getTargetFormat() { return targetFormat; }
     public void setTargetFormat(String targetFormat) { this.targetFormat = targetFormat; }
+
+    @Override
+    public String toString() {
+        return "DateFormatTransformer{" +
+                "sourceFormat='" + sourceFormat + '\'' +
+                ", targetFormat='" + targetFormat + '\'' +
+                '}';
+    }
 }

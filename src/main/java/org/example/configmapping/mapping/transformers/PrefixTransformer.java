@@ -20,4 +20,12 @@ public class PrefixTransformer implements ValueTransformer {
 
     public String getPrefix() { return prefix; }
     public void setPrefix(String prefix) { this.prefix = prefix; }
+
+
+    @Override
+    public String toString() {
+        return "PrefixTransformer{" +
+                "prefix='" + prefix + '\'' +
+                '}';
+    }
 }

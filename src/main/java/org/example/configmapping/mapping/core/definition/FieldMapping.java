@@ -1,5 +1,6 @@
 package org.example.configmapping.mapping.core.definition;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.example.configmapping.mapping.api.MappingContext;
 import org.example.configmapping.mapping.core.transform.ValueTransformer;
 import org.example.configmapping.mapping.exception.MappingException;
@@ -7,6 +8,7 @@ import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class FieldMapping {
     private String sourcePath;
     private String targetPath;
@@ -14,7 +16,6 @@ public class FieldMapping {
     private MappingCondition condition;
 
     private transient Expression sourceExpression;
-
     private static final ExpressionParser PARSER = new SpelExpressionParser();
 
     /**
@@ -27,16 +28,20 @@ public class FieldMapping {
 
         try {
             Object sourceValue = getSourceValue(source);
-        }catch (Exception e){
+            // Transformation éventuelle
+            if (transformer != null) {
+                sourceValue = transformer.transform(sourceValue, context);
+            }
+            // Affectation de la valeur dans l'objet cible
+            setTargetValue(target, sourceValue);
+        } catch (Exception e) {
             throw new MappingException("Échec du mapping du champ : " + sourcePath + " -> " + targetPath, e);
         }
     }
 
-
     /**
      * Extrait la valeur depuis l'objet source en utilisant une expression SpEL.
      */
-
     private Object getSourceValue(Object source) {
         if (sourceExpression == null) {
             sourceExpression = PARSER.parseExpression(sourcePath);
@@ -46,8 +51,6 @@ public class FieldMapping {
 
     /**
      * Affecte la valeur dans l'objet cible en utilisant la réflexion.
-     * Pour simplifier, on suppose que targetPath correspond au nom d'une propriété
-     * et que l'objet cible expose un setter correspondant.
      */
     private void setTargetValue(Object target, Object value) {
         try {
@@ -88,4 +91,15 @@ public class FieldMapping {
 
     public MappingCondition getCondition() { return condition; }
     public void setCondition(MappingCondition condition) { this.condition = condition; }
+
+    @Override
+    public String toString() {
+        return "FieldMapping{" +
+                "sourcePath='" + sourcePath + '\'' +
+                ", targetPath='" + targetPath + '\'' +
+                ", transformer=" + transformer +
+                ", condition=" + condition +
+                ", sourceExpression=" + sourceExpression +
+                '}';
+    }
 }

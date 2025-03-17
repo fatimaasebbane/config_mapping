@@ -27,4 +27,11 @@ public class EnumMappingTransformer implements ValueTransformer {
     public void setMappings(Map<String, String> mappings) {
         this.mappings = mappings;
     }
+
+    @Override
+    public String toString() {
+        return "EnumMappingTransformer{" +
+                "mappings=" + mappings +
+                '}';
+    }
 }

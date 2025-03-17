@@ -21,4 +21,12 @@ public class StringTruncateTransformer implements ValueTransformer {
 
     public int getMaxLength() { return maxLength; }
     public void setMaxLength(int maxLength) { this.maxLength = maxLength; }
+
+
+    @Override
+    public String toString() {
+        return "StringTruncateTransformer{" +
+                "maxLength=" + maxLength +
+                '}';
+    }
 }
