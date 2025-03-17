@@ -26,8 +26,12 @@ public class FieldMapping {
             return;
         }
 
+
         try {
             Object sourceValue = getSourceValue(source);
+            System.out.println("xxxxxxxxxxxxxxxxx");
+            System.out.println(sourceValue);
+            System.out.println("xxxxxxxxxxxxxxxxx");
             // Transformation éventuelle
             if (transformer != null) {
                 sourceValue = transformer.transform(sourceValue, context);

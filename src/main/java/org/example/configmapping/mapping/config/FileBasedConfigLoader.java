@@ -87,10 +87,6 @@ public class FileBasedConfigLoader implements MappingConfigLoader {
                 return overrides; // Retourne une liste vide
             }
 
-
-            System.out.println("xxxxxxxxxxxxxxxxxx");
-            System.out.println(overridesPath);
-            System.out.println("xxxxxxxxxxxxxxxxxx");
             // Traitement des ressources YAML
             for (Resource resource : yamlResources) {
                 MappingOverride override = yamlMapper.readValue(resource.getInputStream(), MappingOverride.class);
