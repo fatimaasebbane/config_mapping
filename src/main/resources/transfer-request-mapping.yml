@@ -1,0 +1,29 @@
+id: "transfer-request-mapping"
+sourceType: "com.adria.cbs.connectors.api.dto.TransferRequestDto"
+targetType: "com.adria.cbs.connectors.sopra.model.SopraTransferRequest"
+priority: 100
+fieldMappings:
+  - sourcePath: "sourceAccountId"
+    targetPath: "debitAccount"
+  - sourcePath: "destinationAccountId"
+    targetPath: "creditAccount"
+  - sourcePath: "amount"
+    targetPath: "transactionAmount"
+  - sourcePath: "currency"
+    targetPath: "transactionCurrency"
+  - sourcePath: "reference"
+    targetPath: "referenceNumber"
+  - sourcePath: "executionDate"
+    targetPath: "requestedExecutionDate"
+    transformer: "com.adria.cbs.connectors.mapping.transformers.DateFormatTransformer"
+    transformerParams:
+      sourceFormat: "yyyy-MM-dd"
+      targetFormat: "dd/MM/yyyy"
+  - sourcePath: "transferType"
+    targetPath: "operationType"
+    transformer: "com.adria.cbs.connectors.mapping.transformers.EnumMappingTransformer"
+    transformerParams:
+      mappings:
+        INTERNAL: "TRF_INT"
+        DOMESTIC: "TRF_DOM"
+        INTERNATIONAL: "TRF_INT"

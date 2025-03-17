@@ -1,0 +1,19 @@
+mappingId: "transfer-request-mapping"
+priority: 200
+fieldOverrides:
+  referenceNumber:
+    sourcePath: "reference"
+    transformer: "com.adria.cbs.connectors.mapping.transformers.PrefixTransformer"
+    transformerParams:
+      prefix: "BANK123_"
+  transactionDetails:
+    sourcePath: "description"
+    targetPath: "transactionDetails"
+    transformer: "com.adria.cbs.connectors.mapping.transformers.StringTruncateTransformer"
+    transformerParams:
+      maxLength: 50
+  additionalInformation:
+    sourcePath: "metadata['bankSpecificField']"
+    condition:
+      type: "NOT_NULL"
+      path: "metadata['bankSpecificField']"
