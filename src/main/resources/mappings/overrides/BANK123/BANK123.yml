@@ -1,16 +1,17 @@
 mappingId: "transfer-request-mapping"
+bankId: "BANK123"
 priority: 200
 fieldOverrides:
   referenceNumber:
     sourcePath: "reference"
-    transformer: "org.example.configmapping.mapping.PrefixTransformer"
-    transformerParams:
+    transformer:
+      "@class": "org.example.configmapping.mapping.transformers.PrefixTransformer"
       prefix: "BANK123_"
   transactionDetails:
     sourcePath: "description"
     targetPath: "transactionDetails"
-    transformer: "org.example.configmapping.mapping.StringTruncateTransformer"
-    transformerParams:
+    transformer:
+      "@class": "org.example.configmapping.mapping.transformers.StringTruncateTransformer"
       maxLength: 50
   additionalInformation:
     sourcePath: "metadata['bankSpecificField']"

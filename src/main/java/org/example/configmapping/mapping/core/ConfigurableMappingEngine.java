@@ -64,6 +64,8 @@ public class ConfigurableMappingEngine implements MappingService {
     public <S, T> T transformWithContext(S source, Class<T> targetType, MappingContext context) {
         if (source == null) return null;
 
+        loadBankMappingOverrides(context.getBankId());
+
         // Récupérer la définition de mapping appropriée
         MappingDefinition definition = mappingRegistry.findMapping(
                 source.getClass().getName(),
@@ -77,8 +79,10 @@ public class ConfigurableMappingEngine implements MappingService {
 
         // Appliquer les surcharges spécifiques à la banque si un bankId est présent dans le contexte
         String bankId = context.getBankId();
+
         if (bankId != null) {
             definition = applyBankSpecificOverrides(definition, bankId);
+
         }
 
         // Effectuer la transformation

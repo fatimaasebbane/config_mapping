@@ -70,6 +70,7 @@ public class FileBasedConfigLoader implements MappingConfigLoader {
     public List<MappingOverride> loadMappingOverrides(String bankId) {
         List<MappingOverride> overrides = new ArrayList<>();
 
+
         try {
             String overridesPath = bankOverridesPathTemplate.replace("{bankId}", bankId == null ? "global" : bankId);
 
@@ -78,13 +79,16 @@ public class FileBasedConfigLoader implements MappingConfigLoader {
             Resource[] yamlResources = resourceResolver.getResources(overridesPath + "**/*.yml");
             Resource[] jsonResources = resourceResolver.getResources(overridesPath + "**/*.json");
 
-
+            System.out.println("xxxxxxxxxxxxxxxxxx");
+            System.out.println(overridesPath);
+            System.out.println("xxxxxxxxxxxxxxxxxx");
             // Vérifiez si des ressources existent
             if (yamlResources.length == 0 && jsonResources.length == 0) {
                 System.out.println("Aucun fichier d'override trouvé pour: " + (bankId == null ? "global" : bankId));
 
                 return overrides; // Retourne une liste vide
             }
+
 
             // Traitement des ressources YAML
             for (Resource resource : yamlResources) {
