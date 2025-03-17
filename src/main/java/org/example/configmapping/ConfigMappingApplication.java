@@ -26,6 +26,7 @@ public class ConfigMappingApplication {
         requestDto.setReference("REF789");
         requestDto.setExecutionDate("2025-03-18");  // Format source (yyyy-MM-dd)
         requestDto.setTransferType("DOMESTIC");
+        requestDto.getMetadata().put("bankSpecificField", "valeur spécifique");
 
         String bankId = "BANK123";
 

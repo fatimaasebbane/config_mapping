@@ -64,7 +64,7 @@ public class ConfigurableMappingEngine implements MappingService {
     public <S, T> T transformWithContext(S source, Class<T> targetType, MappingContext context) {
         if (source == null) return null;
 
-        //loadBankMappingOverrides(context.getBankId());
+        loadBankMappingOverrides(context.getBankId());
 
         // Récupérer la définition de mapping appropriée
         MappingDefinition definition = mappingRegistry.findMapping(

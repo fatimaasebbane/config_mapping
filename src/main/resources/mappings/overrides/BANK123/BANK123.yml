@@ -16,5 +16,5 @@ fieldOverrides:
   additionalInformation:
     sourcePath: "metadata['bankSpecificField']"
     condition:
-      type: "NOT_NULL"
+      "@class": "org.example.configmapping.mapping.core.definition.NotNullCondition"
       path: "metadata['bankSpecificField']"

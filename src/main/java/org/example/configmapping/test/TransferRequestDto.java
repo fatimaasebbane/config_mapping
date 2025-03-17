@@ -1,5 +1,8 @@
 package org.example.configmapping.test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class TransferRequestDto {
     private String sourceAccountId;
     private String destinationAccountId;
@@ -8,6 +11,7 @@ public class TransferRequestDto {
     private String reference;
     private String executionDate;
     private String transferType;
+    private Map<String, Object> metadata = new HashMap<>();
 
     // Getters et setters
 
@@ -52,6 +56,14 @@ public class TransferRequestDto {
     }
     public void setTransferType(String transferType) {
         this.transferType = transferType;
+    }
+
+    public Map<String, Object> getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(Map<String, Object> metadata) {
+        this.metadata = metadata;
     }
 
     @Override
