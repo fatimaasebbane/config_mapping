@@ -16,13 +16,13 @@ public class JacksonConfig {
     public ObjectMapper yamlMapper() {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
 
-        // Activer la sérialisation/désérialisation polymorphe
+        // Activer la sérialisation/désérialisation polymorphe pour comprendre le @class dans les YAML
         mapper.registerModule(new SimpleModule() {
             @Override
             public void setupModule(SetupContext context) {
                 super.setupModule(context);
 
-                // Enregistrer tous vos transformateurs
+                // Enregistrer tous vos transformateursn:ackson doit savoir à l'avance quelles classes il est autorisé à créer
                 context.registerSubtypes(
                         DateFormatTransformer.class,
                         EnumMappingTransformer.class,

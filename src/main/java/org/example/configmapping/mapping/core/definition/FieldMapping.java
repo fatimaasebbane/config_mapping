@@ -38,6 +38,7 @@ public class FieldMapping {
             }
             // Affectation de la valeur dans l'objet cible
             setTargetValue(target, sourceValue);
+            System.out.println(sourceValue);
         } catch (Exception e) {
             throw new MappingException("Échec du mapping du champ : " + sourcePath + " -> " + targetPath, e);
         }

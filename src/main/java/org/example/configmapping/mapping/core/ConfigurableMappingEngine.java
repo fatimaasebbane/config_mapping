@@ -48,7 +48,22 @@ public class ConfigurableMappingEngine implements MappingService {
 
     @Override
     public <S, T> T transform(S source, Class<T> targetType) {
-        return transformWithContext(source, targetType, new MappingContext());
+
+        if (source == null) return null;
+
+        // Récupérer la définition de mapping appropriée
+        MappingDefinition definition = mappingRegistry.findMapping(
+                source.getClass().getName(),
+                targetType.getName()
+        );
+
+        if (definition == null) {
+            throw new MappingException("Aucun mapping trouvé de " +
+                    source.getClass().getName() + " vers " + targetType.getName());
+        }
+
+        // Effectuer la transformation
+        return (T) definition.apply(source, null);
     }
 
     @Override

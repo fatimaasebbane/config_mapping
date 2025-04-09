@@ -25,6 +25,6 @@ public class TransferMappingService {
     public <S, T> T map(S source, Class<T> targetType, String bankId) {
         MappingContext context = new MappingContext();
         context.setBankId(bankId);
-        return mappingService.transformWithContext(source, targetType, context);
+        return mappingService.transform(source, targetType);
     }
 }
